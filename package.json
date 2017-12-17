@@ -1,0 +1,29 @@
+{
+  "name": "item-registry",
+  "version": "0.0.1",
+  "description": "wowbuddy item registry",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "author": "Kirill Ivanov <saneargue@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@types/koa": "^2.0.43",
+    "@types/koa-router": "^7.0.27",
+    "@types/winston": "^2.3.7",
+    "axios": "^0.17.1",
+    "bluebird": "^3.5.1",
+    "consul": "^0.30.0",
+    "http2": "^3.3.7",
+    "kafka-node": "^2.3.0",
+    "koa": "^2.4.1",
+    "koa-router": "^7.3.0",
+    "lodash": "^4.17.4",
+    "winston": "^3.0.0-rc1",
+    "yargs": "^10.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^8.5.1"
+  }
+}
