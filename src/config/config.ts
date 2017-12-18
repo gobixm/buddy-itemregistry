@@ -17,6 +17,7 @@ export class Config {
     battleNetApiKey: string = '';
     locale: string = 'ru_RU';
     kafkaBrokers: string = 'localhost:9092';
+    mongoUrl: string = 'mongodb://localhost:27017/wowbuddy-items';
 
     async loadAsync() {
         let usage = 'Usage:' +
@@ -27,10 +28,9 @@ export class Config {
             '--consul-id [string]\n' +
             '--config [string]\n' +
             '--battle-net-api-key [string]\n' +
-            '--realms [string;string;string]\n' +
             '--locale [string]\n' +
-            '--kafka-brokers [string;string]' +
-            '--check-interval-ms [num]';
+            '--kafka-brokers [string;string]';
+
         let argv = yargs
             .usage(usage)
             .argv;
@@ -39,6 +39,7 @@ export class Config {
         config = _.defaultsDeep(config, Config._readEnv());
         try {
             config = _.defaultsDeep(config, Config._readFileAsync(argv.config ? argv.config : 'config.json'));
+            console.log(config);
         } catch (e) {
             console.warn('Failed to load config from file.', e);
         }
@@ -71,12 +72,12 @@ export class Config {
             consulHost: process.env.BUDDY_CONSUL_HOST,
             consulPort: process.env.BUDDY_CONSUL_PORT,
             consulToken: process.env.BUDDY_CONSUL_TOKEN,
-            consulId: process.env.BUDDY_MINER_CONSUL_ID,
-            hosting: process.env.BUDDY_MINER_HOSTING,
-            battleNetApiKey: process.env.BUDDY_MINER_BATTLE_NET_API_KEY,
-            locale: process.env.BUDDY_MINER_LOCALE,
-            kafkaBrokers: process.env.BUDDY_MINER_KAFKA_BROKERS,
-            checkIntervalMs: process.env.BUDDY_MINER_CHECK_INTERVAL_MS,
+            consulId: process.env.BUDDY_REGISTRY_CONSUL_ID,
+            hosting: process.env.BUDDY_REGISTRY_HOSTING,
+            battleNetApiKey: process.env.BUDDY_REGISTRY_BATTLE_NET_API_KEY,
+            locale: process.env.BUDDY_REGISTRY_LOCALE,
+            kafkaBrokers: process.env.BUDDY_REGISTRY_KAFKA_BROKERS,
+            mongoUrl: process.env.BUDDY_MINER_MONGO_URL,
         }
     }
-};
+}

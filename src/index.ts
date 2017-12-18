@@ -7,6 +7,8 @@ import * as Router from "koa-router";
 import logger from './log';
 import {Config} from './config/config';
 import {Consul} from './consul';
+import {ItemLoader} from './item-loader';
+import {ItemStore} from "./item-store";
 
 async function bootstrap(consul: Consul) {
     logger.info('bootstrapping');
@@ -50,6 +52,11 @@ async function serve(config: Config) {
     }
 }
 
+function loadItems(config: Config, store: ItemStore) {
+    let loader = new ItemLoader(store, config)
+    loader.startAsync();
+}
+
 async function run() {
     logger.info('loading config');
     let config = new Config();
@@ -57,6 +64,8 @@ async function run() {
     let consul = new Consul(config);
     await bootstrap(consul);
     await serve(config);
+    let store = new ItemStore(config);
+    loadItems(config, store);
 }
 
 run();
