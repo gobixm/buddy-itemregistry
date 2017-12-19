@@ -9,6 +9,9 @@ import {Config} from './config/config';
 import {Consul} from './consul';
 import {ItemLoader} from './item-loader';
 import {ItemStore} from "./item-store";
+import {Server} from "http";
+import {Http2SecureServer} from "http2";
+import {Promise} from 'bluebird';
 
 async function bootstrap(consul: Consul) {
     logger.info('bootstrapping');
@@ -20,7 +23,7 @@ async function bootstrap(consul: Consul) {
     }
 }
 
-async function serve(config: Config) {
+async function serve(config: Config): Promise<Server | Http2SecureServer> {
     const app = new Koa();
     const router = new Router();
 
@@ -40,21 +43,16 @@ async function serve(config: Config) {
             cert: fs.readFileSync('./config/ssl/item-registry.crt'),
         };
         logger.info(`start listen on ${url.port} port`);
-        http2.createSecureServer(options, app.callback() as any)
+        return await http2.createSecureServer(options, app.callback() as any)
             .listen(url.port)
             .on('error', (err: string) => logger.error(err));
     } else {
         logger.info(`start listen on ${url.port} port`);
-        const server = http.createServer();
-        http.createServer(app.callback())
+
+        return await http.createServer(app.callback())
             .listen(url.port)
             .on('error', (err: string) => logger.error(err));
     }
-}
-
-function loadItems(config: Config, store: ItemStore) {
-    let loader = new ItemLoader(store, config)
-    loader.startAsync();
 }
 
 async function run() {
@@ -63,15 +61,36 @@ async function run() {
     await config.loadAsync();
     let consul = new Consul(config);
     await bootstrap(consul);
-    await serve(config);
+    let server = await serve(config);
     let store = new ItemStore(config);
-    loadItems(config, store);
+    let loader = new ItemLoader(store, config);
+    loader.startAsync();
+
+    process.on('uncaughtException', async (err) => {
+        await logger.error(err);
+        shutdown();
+        process.exit(1)
+    });
+
+    let shutdown = async function () {
+        logger.info('exiting');
+        let srv: any = Promise.promisifyAll(server);
+        await srv.closeAsync();
+        await consul.unregisterAsync();
+        await loader.stopAsync();
+    };
+    process.on('SIGINT', async () => {
+        await shutdown();
+    });
+    process.on('SIGTERM', async () => {
+        await shutdown();
+    });
+    process.on('SIGHUP', async () => {
+        await shutdown();
+    });
+    process.on('SIGBREAK', async () => {
+        await shutdown();
+    });
 }
 
 run();
-
-process.on('uncaughtException', (err) => {
-    logger.error(err);
-    process.exit(1)
-});
-

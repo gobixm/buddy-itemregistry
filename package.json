@@ -6,7 +6,10 @@
   "types": "lib/index",
   "scripts": {
     "start": "node ./lib/index.js",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "npm run test-only",
+    "test-only": "jest --coverage",
+    "test:watch": "jest --watch"
   },
   "author": "Kirill Ivanov <saneargue@gmail.com>",
   "license": "ISC",
@@ -29,12 +32,16 @@
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/bluebird": "^3.5.18",
+    "@types/consul": "^0.23.32",
+    "@types/jest": "^21.1.8",
     "@types/kafka-node": "^2.0.3",
     "@types/koa": "^2.0.43",
     "@types/koa-router": "^7.0.27",
     "@types/lodash": "^4.14.91",
     "@types/mongodb": "^2.2.17",
     "@types/node": "^8.5.1",
-    "@types/winston": "^2.3.7"
+    "@types/winston": "^2.3.7",
+    "jest": "^22.0.3",
+    "typescript": "^2.6.2"
   }
 }

@@ -1,105 +1,53 @@
-import {BonusSummary} from "./bonus-summary";
+import {BonusSummary} from './bonus-summary';
+import * as _ from 'lodash';
 
 export class Item {
-    id: number;
-    description?: string;
-    name?: string;
-    icon?: string;
-    stackable?: number;
-    itemBind?: number;
-    bonusStats: any[];
-    itemSpells: any[];
-    buyPrice: number;
-    itemClass: number;
-    itemSubClass: number;
-    containerSlots: number;
-    inventoryType: number;
-    equippable: boolean;
-    itemLevel: number;
-    maxCount: number;
-    maxDurability: number;
-    minFactionId: number;
-    minReputation: number;
-    quality: number;
-    sellPrice: number;
-    requiredSkill: number;
-    requiredLevel: number;
-    requiredSkillRank: number;
-    baseArmor: number;
-    hasSockets: false;
-    isAuctionable: true;
-    armor: number;
-    displayInfoId: number;
-    nameDescription: string;
-    nameDescriptionColor: string;
-    upgradable: boolean;
-    heroicTooltip: boolean;
-    context: string;
-    bonusLists: any[];
-    availableContexts: string[];
-    bonusSummary: BonusSummary;
-    artifactId: number;
-}
+    constructor(originalData: any) {
+        this.originalData = _.cloneDeep(originalData);
+        let keys = _.keys(this);
 
-let example = {
-    "id": 130215,
-    "description": "",
-    "name": "Смертоносный темный янтарь",
-    "icon": "inv_jewelcrafting_70_cutgem02_orange",
-    "stackable": 200,
-    "itemBind": 0,
-    "bonusStats": [],
-    "itemSpells": [],
-    "buyPrice": 0,
-    "itemClass": 3,
-    "itemSubClass": 5,
-    "containerSlots": 0,
-    "gemInfo": {
-        "bonus": {
-            "name": "+100 к показателю критического удара",
-            "srcItemId": 130215,
-            "requiredSkillId": 0,
-            "requiredSkillRank": 0,
-            "minLevel": 0,
-            "itemLevel": 1
-        },
-        "type": {
-            "type": "PRISMATIC"
-        },
-        "minItemLevel": 680
-    },
-    "inventoryType": 0,
-    "equippable": false,
-    "itemLevel": 101,
-    "maxCount": 0,
-    "maxDurability": 0,
-    "minFactionId": 0,
-    "minReputation": 0,
-    "quality": 2,
-    "sellPrice": 0,
-    "requiredSkill": 0,
-    "requiredLevel": 1,
-    "requiredSkillRank": 0,
-    "itemSource": {
-        "sourceId": 195848,
-        "sourceType": "CREATED_BY_SPELL"
-    },
-    "baseArmor": 0,
-    "hasSockets": false,
-    "isAuctionable": true,
-    "armor": 0,
-    "displayInfoId": 0,
-    "nameDescription": "",
-    "nameDescriptionColor": "000000",
-    "upgradable": true,
-    "heroicTooltip": false,
-    "context": "",
-    "bonusLists": [],
-    "availableContexts": [""],
-    "bonusSummary": {
-        "defaultBonusLists": [],
-        "chanceBonusLists": [],
-        "bonusChances": []
-    },
-    "artifactId": 0
-};
+        let data = _.pick(originalData, keys);
+        _.assign(this, data);
+    }
+
+    //original data
+    originalData: any = {};
+    id: number = 0;
+    description?: string = undefined;
+    name?: string = undefined;
+    icon?: string = undefined;
+    stackable?: number = undefined;
+    itemBind?: number = undefined;
+    bonusStats: any[] = [];
+    itemSpells: any[] = [];
+    buyPrice: number = 0;
+    itemClass: number = 0;
+    itemSubClass: number = 0;
+    containerSlots: number = 0;
+    inventoryType: number = 0;
+    equippable: boolean = 0;
+    itemLevel: number = 0;
+    maxCount: number = 0;
+    maxDurability: number = 0;
+    minFactionId: number = 0;
+    minReputation: number = 0;
+    quality: number = 0;
+    sellPrice: number = 0;
+    requiredSkill: number = 0;
+    requiredLevel: number = 0;
+    requiredSkillRank: number = 0;
+    baseArmor: number = 0;
+    hasSockets: bool = false;
+    isAuctionable: true = true;
+    armor: number = 0;
+    displayInfoId: number = 0;
+    nameDescription: string = '';
+    nameDescriptionColor: string = '';
+    upgradable: boolean = '';
+    heroicTooltip: boolean = '';
+    context: string = '';
+    bonusLists: any[] = [];
+    availableContexts: string[] = [];
+    bonusSummary: BonusSummary = undefined;
+    artifactId: number = 0;
+}

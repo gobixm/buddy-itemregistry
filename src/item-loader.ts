@@ -109,7 +109,11 @@ export class ItemLoader {
                     logger.error('failed to commit offset', {error: err});
                     reject(err);
                 } else {
-                    resolve();
+                    logger.info('offset commited ', {offset: data});
+                    this._consumer.close(() => {
+                        logger.info('consumer closed ');
+                        resolve();
+                    });
                 }
             });
         });
