@@ -13,7 +13,7 @@ export class ItemStore {
     }
 
     async getItemAsync(id: number): Promise<Item | null> {
-        return this._db.collection('item').findOne<Item>({_id: id});
+        return await this._db.collection('item').findOne<Item>({_id: id});
     }
 
     async saveItemAsync(item: Item): Promise<void> {

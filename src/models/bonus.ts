@@ -1,13 +1,13 @@
-const example = {
-    "name": "+100 к показателю критического удара",
-    "srcItemId": 130215,
-    "requiredSkillId": 0,
-    "requiredSkillRank": 0,
-    "minLevel": 0,
-    "itemLevel": 1
-};
-
 export class Bonus {
+
+    constructor(data: any) {
+        this.name = data.name;
+        this.requiredSkillId = data.requiredSkillId;
+        this.requiredSkillRank = data.requiredSkillRank;
+        this.minLevel = data.minLevel;
+        this.itemLevel = data.itemLevel;
+    }
+
     name: string;
     requiredSkillId: number;
     requiredSkillRank: number;

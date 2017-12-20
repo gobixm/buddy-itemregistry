@@ -4,9 +4,10 @@ import logger from './log';
 import {Item} from "./models/item";
 import * as _ from "lodash";
 import {ItemStore} from "./item-store";
-import {ConsumerGroup, Message, Offset} from "kafka-node";
+import {ConsumerGroup, ConsumerGroupOptions, Message, Offset} from "kafka-node";
 import {queue} from 'async';
 import {Promise} from 'bluebird';
+import {ItemFactory} from "./item-factory";
 
 const ConsumerGroupStream = require('kafka-node').ConsumerGroupStream;
 const es = require('event-stream');
@@ -24,10 +25,13 @@ export class ItemLoader {
     }
 
     async startAsync() {
+        this.consume();
+    }
+
+    private consume() {
         let groupId = 'item-registry';
         let topic = 'auction-data';
-
-        let kafkaConfig = {
+        let kafkaConfig: ConsumerGroupOptions = {
             id: this._config.consulId,
             groupId: groupId,
             protocol: ['roundrobin'],
@@ -37,33 +41,7 @@ export class ItemLoader {
             autoCommit: true,
             autoCommitIntervalMs: 10000
         };
-        await this.startConsumerFromOffsetAsync(kafkaConfig, groupId, topic);
-    }
-
-    private async startConsumerFromOffsetAsync(kafkaConfig: any, groupId: string, topic: string) {
         this._consumer = new ConsumerGroup(kafkaConfig, topic);
-        // let offset = new Offset(this._consumer.client);
-        // let o: any = Promise.promisifyAll(offset);
-        // let topicData = await o.fetchLatestOffsetsAsync([topic]);
-        // let offsets = _.map(_.keys(topicData[topic]), partition => {
-        //     return {
-        //         topic: topic,
-        //         partition: Number.parseInt(partition)
-        //     }
-        // });
-        // let commitsData = await o.fetchCommitsAsync(groupId, offsets);
-        // let commits = _.map(commitsData[topic], (value: any, key: any) => {
-        //     return {
-        //         topic: topic,
-        //         partition: Number.parseInt(key),
-        //         offset: value < 0 ? 0 : value,
-        //     };
-        // });
-        // await o.commitAsync(groupId, commits);
-        this.consume();
-    }
-
-    private consume() {
         this._consumer.on('error', (error: any) => {
             logger.warn('failed to consume from commited offset', {error: error});
         });
@@ -80,7 +58,6 @@ export class ItemLoader {
         }, 5);
 
         this._consumer.on('message', message => {
-            console.log('got');
             q.push(message, (err) => {
 
             });
@@ -157,8 +134,6 @@ export class ItemLoader {
     }
 
     private static mapItem(item: object): Item {
-        let o = new Item();
-        _.merge(o, item);
-        return o;
+        return ItemFactory.create(item);
     }
 }

@@ -1,6 +1,12 @@
 export class ItemSource {
     sourceId: number;
     sourceType: string;
+
+
+    constructor(itemSource:any) {
+        this.sourceId = itemSource.sourceId;
+        this.sourceType = itemSource.sourceType;
+    }
 }
 
 const example = {
