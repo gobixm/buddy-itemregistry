@@ -1,5 +1,3 @@
-import {Item} from "./item";
+import { Item } from "./item";
 
-export class Receipt extends Item {
-
-}
+export class Receipt extends Item {}

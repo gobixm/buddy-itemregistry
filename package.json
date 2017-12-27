@@ -1,6 +1,6 @@
 {
-  "name": "item-registry",
-  "version": "0.0.1",
+  "name": "wowbuddy-itemregistry",
+  "version": "0.9.0",
   "description": "wowbuddy item registry",
   "main": "lib/index",
   "types": "lib/index",
@@ -9,34 +9,44 @@
     "build": "tsc",
     "test": "npm run test-only",
     "test-only": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "prettify": "prettier src/**/* --write"
   },
   "author": "Kirill Ivanov <saneargue@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gobixm/buddy-itemregistry.git"
+  },
   "license": "ISC",
   "dependencies": {
-    "@types/async": "^2.0.45",
     "async": "^2.6.0",
     "axios": "^0.17.1",
     "bluebird": "^3.5.1",
     "consul": "^0.30.0",
+    "dotenv": "^2.0.0",
     "event-stream": "^3.3.4",
     "http2": "^3.3.7",
     "kafka-node": "^2.3.0",
     "koa": "^2.4.1",
     "koa-router": "^7.3.0",
+    "koa2-cors": "^2.0.5",
     "lodash": "^4.17.4",
     "mongodb": "^2.2.14",
     "winston": "^3.0.0-rc1",
-    "yargs": "^10.0.3"
+    "rc": "^1.2.2"
   },
   "devDependencies": {
+    "@types/async": "^2.0.45",
     "@types/axios": "^0.14.0",
     "@types/bluebird": "^3.5.18",
     "@types/consul": "^0.23.32",
+    "@types/dotenv": "^2.0.20",
+    "@types/rc": "0.0.1",
     "@types/jest": "^21.1.8",
     "@types/kafka-node": "^2.0.3",
     "@types/koa": "^2.0.43",
     "@types/koa-router": "^7.0.27",
+    "@types/koa2-cors": "^2.0.1",
     "@types/lodash": "^4.14.91",
     "@types/mongodb": "^2.2.17",
     "@types/node": "^8.5.1",

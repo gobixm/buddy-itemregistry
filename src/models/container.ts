@@ -1,5 +1,3 @@
-import {Item} from "./item";
+import { Item } from "./item";
 
-export class Container extends Item {
-
-}
+export class Container extends Item {}

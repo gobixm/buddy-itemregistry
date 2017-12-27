@@ -1,0 +1,25 @@
+sudo: required
+language: node_js
+node_js:
+- '8'
+services:
+- docker
+jobs:
+  include:
+  - stage: publish npm
+    if: tag =~ ^(?!\s*$).+
+    deploy:
+      provider: npm
+      email: saneargue@gmail.com
+      api_key:
+        secure: hOBXJUL2on0HdSK0qtt8/vGiGG/6R4iwTVL9vcAo8bAa5H5m9alIoU7JXGrOwJpp7mwNGIR9XDDA7zypRGh6i2F7vpHbXJ25APOOH3K7SMnKf6Bd23+BTOANTtl9XylcbAWUyx8LbcrxjKZe6Rw7ndViAL9+doF+kjaWeZ9ybVBun0a5HM/iN/TwXYTLOZeH6y/IK5Ukg1lGiYi8Uof+e/mKfZNVigbUTBmuqEDjb00rzJO9Sc26TxOoAnFfdxu504JqcIGUiDI8y4MOjZv5D+AW6q15tpW6vVGd82YDMeGgh2fFzJ1gCe+sVct4J03tM5ys6/wzr8NxKNW9Qex4d/nvgaAcOtqVybGfCm6PSXZywO2inK9W/+vZqDg6dmYDxsV25Kn6xw4UdtCWfvaWUMAZGJESbbAvD6G71ZIQB2P4uX819RCzh+26BdIykLnZpQsOmh1NyNmFIRJJ9abmFo3iEtMTEp8Y+uh6/QSgQoNgC9tn/Xq3/UW+T3n2hI9tGAItufUoo9xM7pleajwLZ6llmRh+fJpTdPl4uQb/Wxne4p1GZu7ibiYRgady2PVdHsMC2uc22hhWA0AtiXnAJ3E5DYtME+j4s+ZxPNriuGPZ7OjoptIKNJZH4wpf61Ko70RJMRbjfPLHqhUzSOT329bOjYgK+1FX10vlPkUo23A=
+      on:
+        tags: true
+  - stage: build docker image
+    if: tag =~ ^(?!\s*$).+
+    script:
+    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    - docker build -f Dockerfile -t wowbuddy-itemregistry .
+    - docker images
+    - docker tag wowbuddy-itemregistry $DOCKER_USERNAME/wowbuddy-itemregistry
+    - docker push $DOCKER_USERNAME/wowbuddy-itemregistry

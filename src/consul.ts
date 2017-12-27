@@ -1,8 +1,7 @@
-import {Config} from "./config/config";
+import { Config } from "./config/config";
 
 const consul = require("consul");
-import logger from './log';
-
+import logger from "./log";
 
 export class Consul {
     private _client: any;
@@ -23,17 +22,17 @@ export class Consul {
     async registerAsync() {
         let config = {
             id: this._config.consulId,
-            name: 'item-registry',
+            name: "buddy_itemregistry",
             check: {
                 http: `${this._config.hosting}/api/health`,
-                interval: '15s',
+                interval: "15s",
                 tls_skip_verify: true
             }
         };
-        logger.info('registering service in consul with params...', config);
+        logger.info("registering service in consul with params...", config);
         try {
             await this._client.agent.service.register(config);
-            logger.info('service registered');
+            logger.info("service registered");
         } catch (e) {
             logger.error(e);
             throw e;
@@ -41,12 +40,11 @@ export class Consul {
     }
 
     async unregisterAsync() {
-        logger.info('unregistering service in consul...');
+        logger.info("unregistering service in consul...");
         try {
             await this._client.agent.service.deregister(this._config.consulId);
-            logger.info('unregistered');
-        }
-        catch (e) {
+            logger.info("unregistered");
+        } catch (e) {
             logger.error(e);
             throw e;
         }
@@ -54,13 +52,12 @@ export class Consul {
 
     async getValueAsync(key: string) {
         try {
-            let result = (await this._client.kv.get(key));
+            let result = await this._client.kv.get(key);
             if (!result) {
                 return {};
             }
             return JSON.parse(result.Value);
-        }
-        catch (e) {
+        } catch (e) {
             logger.error(e);
             throw e;
         }
@@ -72,10 +69,9 @@ export class Consul {
                 key: key,
                 value: JSON.stringify(value)
             });
-        }
-        catch (e) {
+        } catch (e) {
             logger.error(e);
             throw e;
         }
     }
-};
+}

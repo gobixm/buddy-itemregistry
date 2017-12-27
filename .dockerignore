@@ -1,0 +1,16 @@
+node_modules
+npm-debug.log
+logs
+.prettierrc.json
+.git
+.gitignore
+.idea
+src
+coverage
+.travis.yml
+jst.config.js
+preprocessor.js
+readme.md
+run.bat
+tsconfig.json
+__tests__

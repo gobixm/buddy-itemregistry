@@ -1,5 +1,4 @@
 export class Bonus {
-
     constructor(data: any) {
         this.name = data.name;
         this.requiredSkillId = data.requiredSkillId;

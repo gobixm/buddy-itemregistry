@@ -1,8 +1,7 @@
-import {Item} from "./item";
-import {Bonus} from "./bonus";
+import { Item } from "./item";
+import { Bonus } from "./bonus";
 
 export class Gem extends Item {
-
     constructor(originalData: any) {
         super(originalData);
         this.minItemLevel = originalData.gemInfo.minItemLevel;

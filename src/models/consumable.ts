@@ -1,5 +1,3 @@
-import {Item} from "./item";
+import { Item } from "./item";
 
-export class Consumable extends Item {
-
-}
+export class Consumable extends Item {}

@@ -1,8 +1,8 @@
-import {BonusSummary} from './bonus-summary';
-import * as _ from 'lodash';
-import {ItemSource} from "./item-source";
-import {ItemClass} from "./item-class";
-import {ItemSpell} from "./item-spell";
+import { BonusSummary } from "./bonus-summary";
+import * as _ from "lodash";
+import { ItemSource } from "./item-source";
+import { ItemClass } from "./item-class";
+import { ItemSpell } from "./item-spell";
 
 export class Item {
     constructor(originalData: any) {
@@ -17,7 +17,10 @@ export class Item {
             this.itemSource = new ItemSource(originalData.itemSource);
         }
         if (_.some(originalData.itemSpells)) {
-            this.itemSpells = _.map(originalData.itemSpells, itemSpell => new ItemSpell(itemSpell));
+            this.itemSpells = _.map(
+                originalData.itemSpells,
+                itemSpell => new ItemSpell(itemSpell)
+            );
         }
     }
 
@@ -57,11 +60,11 @@ export class Item {
     isAuctionable: true = true;
     armor: number = 0;
     displayInfoId: number = 0;
-    nameDescription: string = '';
-    nameDescriptionColor: string = '';
+    nameDescription: string = "";
+    nameDescriptionColor: string = "";
     upgradable: boolean = false;
     heroicTooltip: boolean = false;
-    context: string = '';
+    context: string = "";
     bonusLists: any[];
     availableContexts: string[] = [];
     artifactId: number = 0;

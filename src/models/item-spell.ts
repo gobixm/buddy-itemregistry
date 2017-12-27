@@ -1,7 +1,6 @@
-import * as _ from 'lodash';
+import * as _ from "lodash";
 
 export class Spell {
-
     constructor(data: any) {
         this.id = data.id;
         this.name = data.name;
@@ -22,14 +21,13 @@ export class Spell {
 }
 
 export class ItemSpell {
-
     constructor(data: any) {
         this.spellId = data.spellId;
         this.nCharges = data.nCharges;
         this.consumable = data.consumable;
         this.categoryId = data.categoryId;
         this.trigger = data.trigger;
-        if(_.some(data.spell)){
+        if (_.some(data.spell)) {
             this.spell = new Spell(data.spell);
         }
     }

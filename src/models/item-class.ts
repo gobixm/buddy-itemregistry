@@ -15,7 +15,7 @@ export enum ItemClass {
     Key = 13,
     Class14 = 14,
     Misc = 15,
-    Glyph = 16,
+    Glyph = 16
 }
 
 export enum ConsumableSubclass {
@@ -37,7 +37,7 @@ export enum ContainerSubclass {
     MiningBag = 6,
     LeatherworkingBag = 7,
     InscriptionBag = 8,
-    TackleBox = 9,
+    TackleBox = 9
 }
 
 export enum WeaponSubclass {
@@ -55,7 +55,7 @@ export enum WeaponSubclass {
     Miscellaneous = 14,
     Dagger = 15,
     Crossbow = 18,
-    Wand = 19,
+    Wand = 19
 }
 
 export enum GemSubclass {
@@ -69,7 +69,7 @@ export enum GemSubclass {
     BlueVersatility = 8,
     Meta = 9,
     Purple = 10,
-    Relic = 11,
+    Relic = 11
 }
 
 export enum MaterialSubclass {
@@ -83,7 +83,7 @@ export enum MaterialSubclass {
     Elemental = 10,
     Other = 11,
     Enchanting = 12,
-    Ink = 16,
+    Ink = 16
 }
 
 export enum EnchantSubclass {
@@ -100,7 +100,7 @@ export enum EnchantSubclass {
     EnhancementWeapon = 11,
     EnhancementTwoHandedWeapon = 12,
     EnhancementShield = 13,
-    LeatherArmorKit = 14,
+    LeatherArmorKit = 14
 }
 
 export enum ReceiptSubclass {
@@ -113,7 +113,7 @@ export enum ReceiptSubclass {
     Alchemy = 6,
     Enchanting = 8,
     Jewelcrafting = 10,
-    Inscription = 11,
+    Inscription = 11
 }
 
 export enum MiscSubclass {

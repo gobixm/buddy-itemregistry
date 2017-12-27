@@ -1,8 +1,7 @@
-import {Item} from "./item";
+import { Item } from "./item";
 import * as _ from "lodash";
 
 class Damage {
-
     constructor(data: any) {
         this.min = data.min;
         this.max = data.max;

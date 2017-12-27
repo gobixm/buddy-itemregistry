@@ -1,23 +1,23 @@
-import {Item} from "./models/item";
-import {ItemClass} from "./models/item-class";
-import {Gem} from "./models/gem";
-import {Consumable} from "./models/consumable";
-import {Container} from "./models/container";
-import {Enchant} from "./models/enchant";
-import {Receipt} from "./models/receipt";
-import {Glyph} from "./models/glyph";
-import {Key} from "./models/key";
-import {Armor} from "./models/armor";
-import {TradeGood} from "./models/trade-good";
-import {Weapon} from "./models/weapon";
-import {Misc} from "./models/misc";
-import {Token} from "./models/token";
+import { Item } from "./models/item";
+import { ItemClass } from "./models/item-class";
+import { Gem } from "./models/gem";
+import { Consumable } from "./models/consumable";
+import { Container } from "./models/container";
+import { Enchant } from "./models/enchant";
+import { Receipt } from "./models/receipt";
+import { Glyph } from "./models/glyph";
+import { Key } from "./models/key";
+import { Armor } from "./models/armor";
+import { TradeGood } from "./models/trade-good";
+import { Weapon } from "./models/weapon";
+import { Misc } from "./models/misc";
+import { Token } from "./models/token";
 import logger from "./log";
 
 export class ItemFactory {
     static create(json: any): Item {
         if (json.itemClass === undefined) {
-            logger.error('unknown item class', {item: json});
+            logger.error("unknown item class", { item: json });
             throw new Error(`unknown item class for item ${json.id}`);
         }
         let itemClass = json.itemClass as ItemClass;
@@ -37,7 +37,7 @@ export class ItemFactory {
             case ItemClass.Receipt:
                 return new Receipt(json);
             case ItemClass.Glyph:
-                return new Enchant(Glyph);
+                return new Glyph(json);
             case ItemClass.Key:
                 return new Key(json);
             case ItemClass.Misc:

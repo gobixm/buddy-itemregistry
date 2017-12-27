@@ -1,5 +1,3 @@
-import {Item} from "./item";
+import { Item } from "./item";
 
-export class Glyph extends Item {
-
-}
+export class Glyph extends Item {}

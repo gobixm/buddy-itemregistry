@@ -1,5 +1,3 @@
-import {Item} from "./item";
+import { Item } from "./item";
 
-export class Enchant extends Item {
-
-}
+export class Enchant extends Item {}
